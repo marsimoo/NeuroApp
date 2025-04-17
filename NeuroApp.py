@@ -1,11 +1,8 @@
 import streamlit as st
-import openai
 import numpy as np
 import matplotlib.pyplot as plt
 import time
 
-# 🔑 Add your OpenAI API key
-openai.api_key = "your-api-key-here"
 
 st.set_page_config(page_title="NeuroWheels", layout="wide")
 
@@ -57,25 +54,6 @@ elif menu == "Chat with NeuroGuide":
     st.header("🤖 NeuroGuide - Your Brainy Assistant")
     user_input = st.chat_input("Ask NeuroGuide anything...")
 
-    if user_input:
-        # Add user's message
-        st.session_state.chat_history.append({"role": "user", "content": user_input})
-
-        # Call OpenAI API
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are NeuroGuide, an expert in brain-computer interfaces, health monitoring, and signal analysis. Answer with clarity, friendliness, and helpfulness."},
-                *st.session_state.chat_history
-            ]
-        )
-
-        reply = response.choices[0].message.content
-        st.session_state.chat_history.append({"role": "assistant", "content": reply})
-
-    # Display chat history
-    for msg in st.session_state.chat_history:
-        st.chat_message(msg["role"]).write(msg["content"])
 
 # -------------------------------
 # 📈 Brain Signal Visualization
